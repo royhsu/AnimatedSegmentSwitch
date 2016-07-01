@@ -11,102 +11,6 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet weak var segmentControl: AnimatedSegmentSwitch!
-
-    private lazy var navBarSegmentSwitch: AnimatedSegmentSwitch = {
-
-        let segmentControl = AnimatedSegmentSwitch()
-        segmentControl.frame = CGRect(x: 30.0, y: 40.0, width: 200.0, height: 30.0)
-        
-        segmentControl.backgroundColor = .customYellowColor()
-        segmentControl.borderColor = .clearColor()
-        
-        segmentControl.selectedTitleColor = .customYellowColor()
-        segmentControl.titleColor = .whiteColor()
-        segmentControl.font = UIFont(name: "HelveticaNeue-Medium", size: 14.0)
-
-        segmentControl.thumbColor = .whiteColor()
-        segmentControl.thumbCornerRadius = 1.0
-        segmentControl.thumbInset = 0.0
-        
-        segmentControl.addTarget(self, action: "segmentValueDidChange:", forControlEvents: .ValueChanged)
-        
-        segmentControl.items = ["Swift", "Objective-C"]
-        segmentControl.setSelectedIndex(0, animated: true)
-
-        return segmentControl
-    }()
-    
-    private lazy var statsSegmentSwitch: AnimatedSegmentSwitch = {
-
-        let segmentControl = AnimatedSegmentSwitch()
-        segmentControl.frame = CGRect(x: 50.0, y: 20.0, width: self.view.bounds.width - 100.0, height: 30.0)
-        segmentControl.autoresizingMask = [.FlexibleWidth]
-        
-        segmentControl.backgroundColor = .customBlueColor()
-
-        segmentControl.selectedTitleColor = .customBlueColor()
-        segmentControl.titleColor = .whiteColor()
-        segmentControl.font = UIFont(name: "HelveticaNeue-Medium", size: 13.0)
-        
-        segmentControl.thumbColor = .whiteColor()
-
-        segmentControl.addTarget(self, action: "segmentValueDidChange:", forControlEvents: .ValueChanged)
-        
-        segmentControl.items = ["Week", "Month", "Year"]
-
-        return segmentControl
-    }()
-    
-    private lazy var lyftSegmentSwitch: AnimatedSegmentSwitch = {
-
-        let segmentControl = AnimatedSegmentSwitch()
-        segmentControl.frame = CGRect(x: 50.0, y: 70.0, width: self.view.bounds.width - 100.0, height: 35.0)
-        segmentControl.autoresizingMask = [.FlexibleWidth]
-
-        segmentControl.backgroundColor = .lyftLightGrayColor()
-
-        segmentControl.selectedTitleColor = .whiteColor()
-        segmentControl.titleColor = .whiteColor()
-        segmentControl.font = UIFont(name: "HelveticaNeue-Medium", size: 13.0)
-
-        segmentControl.borderColor = .lyftLightGrayColor()
-        segmentControl.thumbColor = .lyftPinkColor()
-        segmentControl.thumbInset = 2.0
-
-        segmentControl.addTarget(self, action: "segmentValueDidChange:", forControlEvents: .ValueChanged)
-
-        segmentControl.items = ["Line", "Lyft", "Plus"]
-        segmentControl.setSelectedIndex(1, animated: true)
-
-        return segmentControl
-    }()
-    
-    private lazy var tipSegmentSwitch: AnimatedSegmentSwitch = {
-        
-        let segmentControl = AnimatedSegmentSwitch()
-        segmentControl.frame = CGRect(x: 50.0, y: 125.0, width: self.view.bounds.width - 100.0, height: 35.0)
-        segmentControl.autoresizingMask = [.FlexibleWidth]
-        
-        segmentControl.backgroundColor = .whiteColor()
-        
-        segmentControl.selectedTitleColor = .whiteColor()
-        segmentControl.titleColor = .lyftGrayColor()
-        segmentControl.font = UIFont(name: "Avenir-Black", size: 13.0)
-
-        segmentControl.thumbColor = .lyftPinkColor()
-        segmentControl.thumbInset = 0.0
-
-        segmentControl.cornerRadius = 1.4
-        segmentControl.thumbCornerRadius = 1.4
-        
-        segmentControl.addTarget(self, action: "segmentValueDidChange:", forControlEvents: .ValueChanged)
-        
-        segmentControl.items = ["No tip", "$ 1", "$ 2", "$ 5", "Other"]
-        segmentControl.setSelectedIndex(3, animated: true)
-        
-        return segmentControl
-    }()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,25 +19,20 @@ class ViewController: UIViewController {
 
         navigationController!.navigationBar.translucent = false
         navigationController!.navigationBar.barTintColor = .customLightYellowColor()
-
-        navigationItem.titleView = navBarSegmentSwitch
-       
-        view.addSubview(statsSegmentSwitch)
-        
-        view.addSubview(lyftSegmentSwitch)
-        
-        view.addSubview(tipSegmentSwitch)
         
         if let control = segmentControl {
-            control.font = UIFont(name: "HelveticaNeue-Medium", size: 17.0)
+            
             control.thumbCornerRadius = 1.0
             control.thumbInset = 0.0
 
             control.thumbColor = .customGreenColor()
-            control.titleColor = .customRedColor()
-            control.selectedTitleColor = .whiteColor()
+            control.normalColor = .customRedColor()
+            control.selectedColor = .whiteColor()
 
-            control.items = ["Good", "Bad"]
+            control.items = [
+                UIImage(named: "item1")!.imageWithRenderingMode(.AlwaysTemplate),
+                UIImage(named: "item2")!.imageWithRenderingMode(.AlwaysTemplate)
+            ]
         }
     }
 
@@ -143,14 +42,14 @@ class ViewController: UIViewController {
 
     @IBAction func segmentValueChanged(sender: AnimatedSegmentSwitch!) {
 
-        sender.selectedTitleColor = .whiteColor()
+        sender.selectedColor = .whiteColor()
 
         if sender.selectedIndex == 0 {
             sender.thumbColor = .customGreenColor()
-            sender.titleColor = .customRedColor()
+            sender.normalColor = .customRedColor()
         } else if sender.selectedIndex == 1 {
             sender.thumbColor = .customRedColor()
-            sender.titleColor = .customGreenColor()
+            sender.normalColor = .customGreenColor()
         }
     }
 }
