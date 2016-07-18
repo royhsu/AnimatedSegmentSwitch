@@ -20,45 +20,45 @@ import UIKit
     public var animationSpringDamping: CGFloat = 0.6
     public var animationInitialSpringVelocity: CGFloat = 0.8
     
-    // MARK: - IBInspectable Properties
+    // MARK: - Properties
     
-    @IBInspectable public var selectedColor: UIColor = .blackColor() {
+    public var selectedColor: UIColor = .blackColor() {
         didSet {
             setSelectedColors()
         }
     }
     
-    @IBInspectable public var normalColor: UIColor = .whiteColor() {
+    public var normalColor: UIColor = .whiteColor() {
         didSet {
             setSelectedColors()
         }
     }
     
-    @IBInspectable public var borderColor: UIColor = .whiteColor() {
+    public var borderColor: UIColor = .whiteColor() {
         didSet {
             layer.borderColor = borderColor.CGColor
         }
     }
     
-    @IBInspectable public var cornerRadius: CGFloat! {
+    public var cornerRadius: CGFloat! {
         didSet {
             layer.cornerRadius = cornerRadius
         }
     }
     
-    @IBInspectable public var thumbColor: UIColor = .whiteColor() {
+    public var thumbColor: UIColor = .whiteColor() {
         didSet {
             setSelectedColors()
         }
     }
     
-    @IBInspectable public var thumbCornerRadius: CGFloat! {
+    public var thumbCornerRadius: CGFloat! {
         didSet {
             thumbView.layer.cornerRadius = thumbCornerRadius
         }
     }
     
-    @IBInspectable public var thumbInset: CGFloat = 2.0 {
+    public var thumbInset: CGFloat = 2.0 {
         didSet {
             setNeedsLayout()
         }
@@ -170,16 +170,20 @@ import UIKit
         
         imageViews.forEach { $0.tintColor = normalColor }
         
-        let selectedImageView = imageViews[selectedIndex]
-        selectedImageView.tintColor = selectedColor
-        
-        UIView.animateWithDuration(animationDuration,
-                                   delay: 0.0,
-                                   usingSpringWithDamping: animationSpringDamping,
-                                   initialSpringVelocity: animationInitialSpringVelocity,
-                                   options: [],
-                                   animations: { self.thumbView.frame = selectedImageView.frame },
-                                   completion: nil)
+        if imageViews.count > 0 {
+            
+            let selectedImageView = imageViews[selectedIndex]
+            selectedImageView.tintColor = selectedColor
+            
+            UIView.animateWithDuration(animationDuration,
+                                       delay: 0.0,
+                                       usingSpringWithDamping: animationSpringDamping,
+                                       initialSpringVelocity: animationInitialSpringVelocity,
+                                       options: [],
+                                       animations: { self.thumbView.frame = selectedImageView.frame },
+                                       completion: nil)
+            
+        }
         
     }
     
@@ -188,10 +192,13 @@ import UIKit
         imageViews.forEach { $0.tintColor = normalColor }
         
         if imageViews.count > 0 {
+            
             imageViews[selectedIndex].tintColor = selectedColor
+            
         }
         
         thumbView.backgroundColor = thumbColor
+        
     }
     
     private func indexAtLocation(location: CGPoint) -> Int? {
